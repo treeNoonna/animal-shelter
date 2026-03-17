@@ -112,7 +112,7 @@
   {
     "id": "berry-friends-jeonbuk",
     "name": "베리프렌즈 전북쉼터",
-    "region": "전라",
+    "region": "전라도",
     "city": "전북 전주시",
     "type": "중소형견 보호",
     "description": "입양 행사와 지역 커뮤니티 교육을 함께 운영하는 밝은 분위기의 보호소입니다.",
@@ -263,7 +263,7 @@
   {
     "id": "mokpo-cat-sarangbang",
     "name": "목포고양이사랑방",
-    "region": "전라",
+    "region": "전라도",
     "city": "전남 목포시",
     "type": "고양이 보호",
     "description": "목포 지역에서 구조된 고양이들을 보호하고 후원과 돌봄 네트워크를 연결하는 민간 보호소입니다.",

@@ -276,6 +276,7 @@ h3 {
 .catalog-card {
   display: grid;
   gap: 14px;
+  min-width: 0;
 }
 
 .tag-row,
@@ -299,12 +300,14 @@ h3 {
 .catalog-copy {
   display: grid;
   gap: 6px;
+  min-width: 0;
 }
 
 .city,
 .description,
 .donation-block p {
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .description {
@@ -415,19 +418,27 @@ h3 {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
   gap: 24px;
+  align-items: start;
+}
+
+.map-main-column {
+  display: grid;
+  gap: 18px;
+  align-content: start;
 }
 
 .map-canvas-shell {
-  min-height: 640px;
+  height: clamp(540px, 72vh, 760px);
   border: 1px solid var(--line-soft);
   background: white;
   overflow: hidden;
+  align-self: start;
 }
 
 .naver-map,
 .map-fallback {
   width: 100%;
-  min-height: 640px;
+  height: 100%;
 }
 
 .map-fallback {
@@ -438,20 +449,163 @@ h3 {
 }
 
 .naver-marker {
+  position: relative;
   display: inline-grid;
   place-items: center;
-  width: 74px;
-  height: 74px;
+  width: 54px;
+  height: 54px;
   border-radius: 999px;
   color: white;
   font-family: var(--font-display);
   border: 3px solid white;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.14);
+}
+
+.naver-marker-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(6px);
+  min-width: max-content;
+  max-width: 180px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.92);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.naver-marker-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 10px;
+  height: 10px;
+  background: rgba(17, 17, 17, 0.92);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.naver-marker:hover .naver-marker-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.naver-user-marker {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2f74ff;
+  border: 4px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 18px rgba(47, 116, 255, 0.28);
 }
 
 .map-sidebar {
   display: grid;
   gap: 12px;
   align-content: start;
+}
+
+.map-sidebar-heading {
+  display: grid;
+  gap: 4px;
+  padding: 4px 2px 8px;
+}
+
+.map-sidebar-heading span,
+.map-sidebar-empty p {
+  color: var(--muted);
+}
+
+.map-sidebar-empty {
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+  border: 1px solid var(--line-soft);
+  background: white;
+}
+
+.nearby-panel,
+.nearby-card {
+  border: 1px solid var(--line-soft);
+  background: white;
+}
+
+.nearby-panel {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+}
+
+.nearby-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nearby-panel-heading h2 {
+  margin-bottom: 0;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+}
+
+.nearby-status {
+  margin: 0;
+  color: var(--muted);
+}
+
+.nearby-status.error {
+  color: #b64a4a;
+}
+
+.nearby-status.ready {
+  color: #2f7d4a;
+}
+
+.nearby-list {
+  display: grid;
+  gap: 12px;
+}
+
+.nearby-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+
+.nearby-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.nearby-copy span {
+  color: var(--muted);
+}
+
+.nearby-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mini-action {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 0;
 }
 
 .map-list-card {
@@ -628,12 +782,21 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .nearby-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 720px) {
+  body {
+    overflow-x: hidden;
+  }
+
   .page-shell {
     width: 100%;
   }
@@ -732,10 +895,19 @@ dd {
 
   .catalog-card {
     gap: 12px;
+    width: 100%;
   }
 
   .catalog-image {
     aspect-ratio: 1;
+  }
+
+  .catalog-copy,
+  .info-block,
+  .donation-block,
+  .description,
+  .tag-row {
+    min-width: 0;
   }
 
   .catalog-copy h3 {
@@ -751,6 +923,12 @@ dd {
   .tag-row span,
   .small-link {
     font-size: 0.82rem;
+  }
+
+  .donation-block p,
+  .city,
+  .description {
+    word-break: break-word;
   }
 
   .detail-hero {
@@ -781,7 +959,16 @@ dd {
   .map-canvas-shell,
   .naver-map,
   .map-fallback {
-    min-height: 420px;
+    height: 420px;
+  }
+
+  .nearby-panel {
+    padding: 18px 16px;
+  }
+
+  .nearby-panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .form-grid {

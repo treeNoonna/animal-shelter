@@ -15,15 +15,20 @@ declare global {
 type NaverMapProps = {
   shelters: Shelter[];
   activeShelterId?: string | null;
+  userLocation?: { lat: number; lng: number } | null;
   onMarkerClick?: (shelter: Shelter) => void;
 };
 
 const DEFAULT_CENTER = { lat: 36.35, lng: 127.78 };
+const DEFAULT_ZOOM = 7;
+const FOCUSED_ZOOM = 12;
+const MARKER_SIZE = 54;
 
-export function NaverMap({ shelters, activeShelterId, onMarkerClick }: NaverMapProps) {
+export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClick }: NaverMapProps) {
   const mapRootRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
+  const userMarkerRef = useRef<any>(null);
   const [isReady, setIsReady] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
 
@@ -55,9 +60,9 @@ export function NaverMap({ shelters, activeShelterId, onMarkerClick }: NaverMapP
     if (!mapRef.current) {
       mapRef.current = new naverMaps.Map(mapRootRef.current, {
         center: new naverMaps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng),
-        zoom: 7,
+        zoom: DEFAULT_ZOOM,
         minZoom: 6,
-        maxZoom: 12,
+        maxZoom: 16,
         logoControl: false,
         mapDataControl: false,
         scaleControl: false,
@@ -71,9 +76,14 @@ export function NaverMap({ shelters, activeShelterId, onMarkerClick }: NaverMapP
         map: mapRef.current,
         title: shelter.name,
         icon: {
-          content: `<div class="naver-marker" style="background:${shelter.map.color}"><span>${shelter.region}</span></div>`,
-          size: new naverMaps.Size(74, 74),
-          anchor: new naverMaps.Point(37, 37),
+          content: `
+            <div class="naver-marker" style="background:${shelter.map.color}" title="${shelter.title}">
+              <span>${shelter.region}</span>
+              <strong class="naver-marker-tooltip">${shelter.title}</strong>
+            </div>
+          `,
+          size: new naverMaps.Size(MARKER_SIZE, MARKER_SIZE),
+          anchor: new naverMaps.Point(MARKER_SIZE / 2, MARKER_SIZE / 2),
         },
       });
 
@@ -92,10 +102,10 @@ export function NaverMap({ shelters, activeShelterId, onMarkerClick }: NaverMapP
       mapRef.current.fitBounds(bounds, { top: 60, right: 40, bottom: 60, left: 40 });
     } else if (encodedShelters.length === 1) {
       mapRef.current.setCenter(new naverMaps.LatLng(encodedShelters[0].map.lat, encodedShelters[0].map.lng));
-      mapRef.current.setZoom(10);
+      mapRef.current.setZoom(FOCUSED_ZOOM);
     } else {
       mapRef.current.setCenter(new naverMaps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng));
-      mapRef.current.setZoom(7);
+      mapRef.current.setZoom(DEFAULT_ZOOM);
     }
   }, [encodedShelters, isReady, onMarkerClick]);
 
@@ -110,8 +120,48 @@ export function NaverMap({ shelters, activeShelterId, onMarkerClick }: NaverMapP
       return;
     }
 
-    mapRef.current.panTo(new naverMaps.LatLng(activeShelter.map.lat, activeShelter.map.lng));
+    const position = new naverMaps.LatLng(activeShelter.map.lat, activeShelter.map.lng);
+    mapRef.current.panTo(position);
+    mapRef.current.setZoom(Math.max(mapRef.current.getZoom() ?? DEFAULT_ZOOM, FOCUSED_ZOOM), true);
   }, [activeShelterId, encodedShelters]);
+
+  useEffect(() => {
+    const naverMaps = window.naver?.maps;
+    if (!naverMaps || !mapRef.current) {
+      return;
+    }
+
+    if (!userLocation) {
+      if (userMarkerRef.current) {
+        userMarkerRef.current.setMap(null);
+        userMarkerRef.current = null;
+      }
+      return;
+    }
+
+    const position = new naverMaps.LatLng(userLocation.lat, userLocation.lng);
+
+    if (!userMarkerRef.current) {
+      userMarkerRef.current = new naverMaps.Marker({
+        position,
+        map: mapRef.current,
+        title: "내 위치",
+        icon: {
+          content: '<div class="naver-user-marker"></div>',
+          size: new naverMaps.Size(22, 22),
+          anchor: new naverMaps.Point(11, 11),
+        },
+      });
+    } else {
+      userMarkerRef.current.setPosition(position);
+      userMarkerRef.current.setMap(mapRef.current);
+    }
+
+    if (!activeShelterId) {
+      mapRef.current.panTo(position);
+      mapRef.current.setZoom(10, true);
+    }
+  }, [activeShelterId, userLocation]);
 
   if (!clientId) {
     return (
