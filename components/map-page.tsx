@@ -2,26 +2,11 @@
 import { useMemo, useState } from "react";
 import { NaverMap } from "@/components/naver-map";
 import { SiteHeader } from "@/components/site-header";
+import { getDistanceKm, type UserLocation } from "@/lib/geo";
 import { regions, shelters } from "@/lib/shelters";
 
-type UserLocation = {
-  lat: number;
-  lng: number;
-};
-
-function getDistanceKm(from: UserLocation, to: UserLocation) {
-  const toRadians = (value: number) => (value * Math.PI) / 180;
-  const earthRadiusKm = 6371;
-  const dLat = toRadians(to.lat - from.lat);
-  const dLng = toRadians(to.lng - from.lng);
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(from.lat)) *
-      Math.cos(toRadians(to.lat)) *
-      Math.sin(dLng / 2) *
-      Math.sin(dLng / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return earthRadiusKm * c;
+function getPrimarySnsLink(sns: Record<string, string>) {
+  return Object.values(sns)[0] ?? null;
 }
 
 export function MapPage() {
@@ -31,9 +16,10 @@ export function MapPage() {
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [locationMessage, setLocationMessage] = useState("");
 
-  const filteredShelters = shelters.filter((shelter) => {
-    return !selectedRegion || shelter.region === selectedRegion;
-  });
+  const filteredShelters = useMemo(
+    () => shelters.filter((shelter) => !selectedRegion || shelter.region === selectedRegion),
+    [selectedRegion],
+  );
 
   const nearestShelters = useMemo(() => {
     if (!userLocation) {
@@ -169,21 +155,31 @@ export function MapPage() {
                   <strong>{selectedRegion}</strong>
                   <span>{filteredShelters.length} shelters</span>
                 </div>
-                {filteredShelters.map((shelter) => (
-                  <article
-                    key={shelter.id}
-                    className={`map-list-card ${activeShelterId === shelter.id ? "is-active" : ""}`}
-                  >
-                    <button
-                      type="button"
-                      className="map-list-button"
-                      onClick={() => setActiveShelterId(shelter.id)}
+                {filteredShelters.map((shelter) => {
+                  const primarySnsLink = getPrimarySnsLink(shelter.sns);
+
+                  return (
+                    <article
+                      key={shelter.id}
+                      className={`map-list-card ${activeShelterId === shelter.id ? "is-active" : ""}`}
                     >
-                      <strong>{shelter.name}</strong>
-                      <span>{shelter.city}</span>
-                    </button>
-                  </article>
-                ))}
+                      <div
+                        className="map-list-button"
+                        onMouseEnter={() => setActiveShelterId(shelter.id)}
+                        onFocus={() => setActiveShelterId(shelter.id)}
+                      >
+                        {primarySnsLink ? (
+                          <a className="map-list-link" href={primarySnsLink} target="_blank" rel="noreferrer">
+                            {shelter.name}
+                          </a>
+                        ) : (
+                          <strong>{shelter.name}</strong>
+                        )}
+                        <span>{shelter.city}</span>
+                      </div>
+                    </article>
+                  );
+                })}
               </>
             ) : (
               <article className="map-sidebar-empty">

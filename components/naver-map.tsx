@@ -21,14 +21,15 @@ type NaverMapProps = {
 
 const DEFAULT_CENTER = { lat: 36.35, lng: 127.78 };
 const DEFAULT_ZOOM = 7;
-const FOCUSED_ZOOM = 12;
-const MARKER_SIZE = 54;
+const MARKER_WIDTH = 22;
+const MARKER_HEIGHT = 30;
 
 export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClick }: NaverMapProps) {
   const mapRootRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
   const userMarkerRef = useRef<any>(null);
+  const markerClickRef = useRef(onMarkerClick);
   const [isReady, setIsReady] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
 
@@ -40,6 +41,9 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
       })),
     [shelters],
   );
+  useEffect(() => {
+    markerClickRef.current = onMarkerClick;
+  }, [onMarkerClick]);
 
   useEffect(() => {
     if (window.naver?.maps) {
@@ -77,18 +81,18 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
         title: shelter.name,
         icon: {
           content: `
-            <div class="naver-marker" style="background:${shelter.map.color}" title="${shelter.title}">
-              <span>${shelter.region}</span>
+            <div class="naver-marker" title="${shelter.title}">
+              <span class="naver-marker-pin" style="background:${shelter.map.color}"></span>
               <strong class="naver-marker-tooltip">${shelter.title}</strong>
             </div>
           `,
-          size: new naverMaps.Size(MARKER_SIZE, MARKER_SIZE),
-          anchor: new naverMaps.Point(MARKER_SIZE / 2, MARKER_SIZE / 2),
+          size: new naverMaps.Size(MARKER_WIDTH, MARKER_HEIGHT),
+          anchor: new naverMaps.Point(MARKER_WIDTH / 2, MARKER_HEIGHT),
         },
       });
 
       naverMaps.Event.addListener(marker, "click", () => {
-        onMarkerClick?.(shelter);
+        markerClickRef.current?.(shelter);
       });
 
       return marker;
@@ -102,28 +106,12 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
       mapRef.current.fitBounds(bounds, { top: 60, right: 40, bottom: 60, left: 40 });
     } else if (encodedShelters.length === 1) {
       mapRef.current.setCenter(new naverMaps.LatLng(encodedShelters[0].map.lat, encodedShelters[0].map.lng));
-      mapRef.current.setZoom(FOCUSED_ZOOM);
+      mapRef.current.setZoom(12);
     } else {
       mapRef.current.setCenter(new naverMaps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng));
       mapRef.current.setZoom(DEFAULT_ZOOM);
     }
-  }, [encodedShelters, isReady, onMarkerClick]);
-
-  useEffect(() => {
-    const naverMaps = window.naver?.maps;
-    if (!naverMaps || !activeShelterId || !mapRef.current) {
-      return;
-    }
-
-    const activeShelter = encodedShelters.find((shelter) => shelter.id === activeShelterId);
-    if (!activeShelter) {
-      return;
-    }
-
-    const position = new naverMaps.LatLng(activeShelter.map.lat, activeShelter.map.lng);
-    mapRef.current.panTo(position);
-    mapRef.current.setZoom(Math.max(mapRef.current.getZoom() ?? DEFAULT_ZOOM, FOCUSED_ZOOM), true);
-  }, [activeShelterId, encodedShelters]);
+  }, [encodedShelters, isReady]);
 
   useEffect(() => {
     const naverMaps = window.naver?.maps;
