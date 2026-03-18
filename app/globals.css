@@ -823,6 +823,10 @@ dd {
 }
 
 @media (max-width: 720px) {
+  .catalog-header {
+    padding: 0 12px;
+  }
+
   body {
     overflow-x: hidden;
   }
@@ -834,7 +838,7 @@ dd {
   .topbar {
     grid-template-columns: 48px 1fr;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 14px 12px;
     min-height: auto;
   }
 
@@ -864,7 +868,7 @@ dd {
   }
 
   .catalog-layout {
-    padding: 0 16px;
+    padding: 0 12px;
   }
 
   .catalog-sidebar {
@@ -903,34 +907,35 @@ dd {
   .filter-stack {
     display: flex;
     gap: 8px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow: visible;
     padding-bottom: 4px;
   }
 
   .region-filter-row {
     width: auto;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     border-radius: 999px;
-    padding: 10px 14px;
+    padding: 8px 12px;
     letter-spacing: 0.02em;
-    font-size: 0.9rem;
+    font-size: 0.84rem;
   }
 
   .catalog-grid {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 18px;
     padding: 12px 0 0;
-    justify-items: center;
+    justify-items: stretch;
   }
 
   .catalog-card {
-    gap: 10px;
-    width: min(100%, 312px);
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .catalog-image {
-    aspect-ratio: 0.64;
+    aspect-ratio: 0.56;
   }
 
   .catalog-copy,
@@ -942,7 +947,7 @@ dd {
   }
 
   .catalog-copy h3 {
-    font-size: 1.02rem;
+    font-size: 0.96rem;
     letter-spacing: 0.03em;
   }
 
