@@ -50,7 +50,6 @@ img {
 }
 
 .catalog-header {
-  margin: 0 64px;
   border-top: 2px solid var(--line);
 }
 
@@ -763,10 +762,6 @@ dd {
 }
 
 @media (max-width: 1280px) {
-  .catalog-header {
-    margin: 0 32px;
-  }
-
   .catalog-layout {
     grid-template-columns: 300px minmax(0, 1fr);
     gap: 36px;
@@ -789,10 +784,6 @@ dd {
 }
 
 @media (max-width: 1024px) {
-  .catalog-header {
-    margin: 0 20px;
-  }
-
   .catalog-layout {
     grid-template-columns: 1fr;
     gap: 0;
@@ -838,10 +829,6 @@ dd {
 
   .page-shell {
     width: 100%;
-  }
-
-  .catalog-header {
-    margin: 0 16px;
   }
 
   .topbar {
@@ -932,17 +919,17 @@ dd {
 
   .catalog-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 22px;
     padding: 12px 0 0;
   }
 
   .catalog-card {
-    gap: 12px;
+    gap: 10px;
     width: 100%;
   }
 
   .catalog-image {
-    aspect-ratio: 0.86;
+    aspect-ratio: 0.72;
   }
 
   .catalog-copy,
@@ -954,18 +941,29 @@ dd {
   }
 
   .catalog-copy h3 {
-    font-size: 1.15rem;
+    font-size: 1.02rem;
     letter-spacing: 0.03em;
+  }
+
+  .city,
+  .description,
+  .donation-block p,
+  .small-link,
+  .tag-row span {
+    font-size: 0.85rem;
   }
 
   .description {
     min-height: 0;
-    font-size: 0.95rem;
+    line-height: 1.45;
   }
 
-  .tag-row span,
-  .small-link {
-    font-size: 0.82rem;
+  .tag-row {
+    gap: 6px;
+  }
+
+  .tag-row span {
+    padding: 6px 10px;
   }
 
   .donation-block p,
