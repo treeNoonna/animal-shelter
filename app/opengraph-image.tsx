@@ -82,15 +82,15 @@ export default async function OpenGraphImage() {
             style={{
               display: "flex",
               flexDirection: "column",
-              fontSize: 72,
-              lineHeight: 0.95,
+              fontSize: 64,
+              lineHeight: 1.08,
               fontWeight: 800,
-              letterSpacing: -2.4,
+              letterSpacing: -1.6,
               marginBottom: 20,
             }}
           >
-            <span>Find Private</span>
-            <span>Shelters Faster</span>
+            <span>전국의 민간 동물보호소를 쉽게</span>
+            <span>찾고 등록해보세요.</span>
           </div>
           <div
             style={{
@@ -101,7 +101,7 @@ export default async function OpenGraphImage() {
               color: "#5c5868",
             }}
           >
-            A curated archive for shelter regions, social links, and donation details across Korea.
+            보호소의 지역 정보, SNS, 후원 정보를 한 번에 모아보세요
           </div>
         </div>
 

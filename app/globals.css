@@ -823,10 +823,6 @@ dd {
 }
 
 @media (max-width: 720px) {
-  .catalog-header {
-    padding: 0 12px;
-  }
-
   body {
     overflow-x: hidden;
   }
@@ -838,7 +834,7 @@ dd {
   .topbar {
     grid-template-columns: 48px 1fr;
     gap: 12px;
-    padding: 14px 12px;
+    padding: 14px 10px;
     min-height: auto;
   }
 
@@ -868,7 +864,7 @@ dd {
   }
 
   .catalog-layout {
-    padding: 0 12px;
+    padding: 0 16px;
   }
 
   .catalog-sidebar {
@@ -923,19 +919,18 @@ dd {
 
   .catalog-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 16px;
     padding: 12px 0 0;
-    justify-items: stretch;
+    justify-items: center;
   }
 
   .catalog-card {
-    gap: 8px;
-    width: 100%;
-    max-width: 100%;
+    gap: 7px;
+    width: min(100%, 286px);
   }
 
   .catalog-image {
-    aspect-ratio: 0.56;
+    aspect-ratio: 0.54;
   }
 
   .catalog-copy,
@@ -947,8 +942,8 @@ dd {
   }
 
   .catalog-copy h3 {
-    font-size: 0.96rem;
-    letter-spacing: 0.03em;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
   }
 
   .city,
@@ -956,20 +951,30 @@ dd {
   .donation-block p,
   .small-link,
   .tag-row span {
-    font-size: 0.8rem;
+    font-size: 0.74rem;
   }
 
   .description {
     min-height: 0;
-    line-height: 1.45;
+    line-height: 1.35;
   }
 
   .tag-row {
-    gap: 6px;
+    gap: 5px;
   }
 
   .tag-row span {
-    padding: 6px 10px;
+    padding: 5px 8px;
+  }
+
+  .info-block {
+    gap: 7px;
+  }
+
+  .ghost-button,
+  .detail-link,
+  .info-link {
+    padding: 9px 11px;
   }
 
   .donation-block p,
