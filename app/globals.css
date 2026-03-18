@@ -921,15 +921,16 @@ dd {
     grid-template-columns: 1fr;
     gap: 22px;
     padding: 12px 0 0;
+    justify-items: center;
   }
 
   .catalog-card {
     gap: 10px;
-    width: 100%;
+    width: min(100%, 312px);
   }
 
   .catalog-image {
-    aspect-ratio: 0.72;
+    aspect-ratio: 0.64;
   }
 
   .catalog-copy,
@@ -950,7 +951,7 @@ dd {
   .donation-block p,
   .small-link,
   .tag-row span {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .description {
