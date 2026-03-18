@@ -492,7 +492,7 @@ h3 {
 .naver-marker-tooltip {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 2px);
   transform: translateX(-50%) translateY(6px);
   min-width: max-content;
   max-width: 180px;
@@ -517,10 +517,12 @@ h3 {
   position: absolute;
   left: 50%;
   top: 100%;
-  width: 10px;
-  height: 10px;
-  background: rgba(17, 17, 17, 0.92);
-  transform: translateX(-50%) rotate(45deg);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid rgba(17, 17, 17, 0.92);
+  transform: translateX(-50%);
 }
 
 .naver-marker:hover .naver-marker-tooltip {
