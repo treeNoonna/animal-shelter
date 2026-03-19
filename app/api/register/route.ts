@@ -24,9 +24,6 @@ export async function POST(request: Request) {
     "hours",
     "description",
     "sns",
-    "donation",
-    "contactName",
-    "contactEmail",
   ] as const;
 
   const missing = requiredFields.find((field) => !payload[field]?.trim());
@@ -57,7 +54,7 @@ export async function POST(request: Request) {
   await transporter.sendMail({
     from: `"Pet Shelter Archive" <${user}>`,
     to,
-    replyTo: payload.contactEmail,
+    replyTo: payload.contactEmail || undefined,
     subject: `[보호소 등록 요청] ${payload.shelterName}`,
     text: `
 보호소 이름: ${payload.shelterName}
@@ -72,13 +69,13 @@ SNS 링크:
 ${payload.sns}
 
 후원 정보:
-${payload.donation}
+${payload.donation || "-"}
 
 필요 물품:
 ${payload.items || "-"}
 
-담당자 이름: ${payload.contactName}
-담당자 이메일: ${payload.contactEmail}
+담당자 이름: ${payload.contactName || "-"}
+담당자 이메일: ${payload.contactEmail || "-"}
     `.trim(),
   });
 

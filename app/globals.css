@@ -427,18 +427,13 @@ h3 {
   align-items: start;
 }
 
-.map-main-column {
-  display: grid;
-  gap: 18px;
-  align-content: start;
-}
-
 .map-canvas-shell {
   height: clamp(540px, 72vh, 760px);
   border: 1px solid var(--line-soft);
   background: white;
   overflow: hidden;
   align-self: start;
+  grid-column: 1;
 }
 
 .naver-map,
@@ -542,6 +537,7 @@ h3 {
   display: grid;
   gap: 12px;
   align-content: start;
+  grid-column: 2;
 }
 
 .map-sidebar-heading {
@@ -573,6 +569,7 @@ h3 {
   display: grid;
   gap: 16px;
   padding: 22px;
+  grid-column: 1;
 }
 
 .nearby-panel-heading {
@@ -810,6 +807,12 @@ dd {
   .map-page-grid,
   .simple-grid {
     grid-template-columns: 1fr;
+  }
+
+  .map-canvas-shell,
+  .map-sidebar,
+  .nearby-panel {
+    grid-column: auto;
   }
 
   .nearby-card {

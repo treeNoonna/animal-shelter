@@ -109,7 +109,6 @@ export function RegisterForm() {
         <label className="form-field form-field-wide">
           <span>후원 정보</span>
           <textarea
-            required
             rows={3}
             placeholder="계좌번호 또는 후원 링크"
             value={form.donation}
@@ -130,7 +129,6 @@ export function RegisterForm() {
         <label className="form-field">
           <span>담당자 이름</span>
           <input
-            required
             value={form.contactName}
             onChange={(event) => setForm((current) => ({ ...current, contactName: event.target.value }))}
           />
@@ -139,7 +137,6 @@ export function RegisterForm() {
         <label className="form-field">
           <span>담당자 이메일</span>
           <input
-            required
             type="email"
             value={form.contactEmail}
             onChange={(event) => setForm((current) => ({ ...current, contactEmail: event.target.value }))}

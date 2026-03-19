@@ -91,61 +91,16 @@ export function MapPage() {
         </div>
 
         <section className="map-page-grid">
-          <div className="map-main-column">
-            <div className="map-canvas-shell">
-              <NaverMap
-                shelters={filteredShelters}
-                activeShelterId={activeShelterId}
-                userLocation={userLocation}
-                onMarkerClick={(shelter) => {
-                  setSelectedRegion(shelter.region);
-                  setActiveShelterId(shelter.id);
-                }}
-              />
-            </div>
-
-            <section className="nearby-panel">
-              <div className="nearby-panel-heading">
-                <div>
-                  <p className="eyebrow">Nearby Shelters</p>
-                  <h2>내 위치 기반 가까운 보호소</h2>
-                </div>
-                <button type="button" className="ghost-button" onClick={handleFindNearest}>
-                  {locationStatus === "loading" ? "위치 확인 중..." : "가까운 보호소 찾기"}
-                </button>
-              </div>
-
-              <p className={`nearby-status ${locationStatus}`}>
-                {locationMessage || "버튼을 누르면 현재 위치 기준으로 가장 가까운 보호소를 찾아줍니다."}
-              </p>
-
-              {nearestShelters.length ? (
-                <div className="nearby-list">
-                  {nearestShelters.map((shelter) => (
-                    <article key={shelter.id} className="nearby-card">
-                      <div className="nearby-copy">
-                        <strong>{shelter.name}</strong>
-                        <span>
-                          {shelter.city} · 약 {shelter.distanceKm.toFixed(1)}km
-                        </span>
-                      </div>
-                      <div className="nearby-actions">
-                        <button
-                          type="button"
-                          className="mini-action"
-                          onClick={() => {
-                            setSelectedRegion(shelter.region);
-                            setActiveShelterId(shelter.id);
-                          }}
-                        >
-                          지도에서 보기
-                        </button>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              ) : null}
-            </section>
+          <div className="map-canvas-shell">
+            <NaverMap
+              shelters={filteredShelters}
+              activeShelterId={activeShelterId}
+              userLocation={userLocation}
+              onMarkerClick={(shelter) => {
+                setSelectedRegion(shelter.region);
+                setActiveShelterId(shelter.id);
+              }}
+            />
           </div>
 
           <aside className="map-sidebar">
@@ -188,6 +143,49 @@ export function MapPage() {
               </article>
             )}
           </aside>
+
+          <section className="nearby-panel">
+            <div className="nearby-panel-heading">
+              <div>
+                <p className="eyebrow">Nearby Shelters</p>
+                <h2>내 위치 기반 가까운 보호소</h2>
+              </div>
+              <button type="button" className="ghost-button" onClick={handleFindNearest}>
+                {locationStatus === "loading" ? "위치 확인 중..." : "가까운 보호소 찾기"}
+              </button>
+            </div>
+
+            <p className={`nearby-status ${locationStatus}`}>
+              {locationMessage || "버튼을 누르면 현재 위치 기준으로 가장 가까운 보호소를 찾아줍니다."}
+            </p>
+
+            {nearestShelters.length ? (
+              <div className="nearby-list">
+                {nearestShelters.map((shelter) => (
+                  <article key={shelter.id} className="nearby-card">
+                    <div className="nearby-copy">
+                      <strong>{shelter.name}</strong>
+                      <span>
+                        {shelter.city} · 약 {shelter.distanceKm.toFixed(1)}km
+                      </span>
+                    </div>
+                    <div className="nearby-actions">
+                      <button
+                        type="button"
+                        className="mini-action"
+                        onClick={() => {
+                          setSelectedRegion(shelter.region);
+                          setActiveShelterId(shelter.id);
+                        }}
+                      >
+                        지도에서 보기
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : null}
+          </section>
         </section>
       </main>
     </div>
