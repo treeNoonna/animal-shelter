@@ -50,7 +50,7 @@ img {
 }
 
 .catalog-header {
-  border-top: 2px solid var(--line);
+  padding: 0 64px;
 }
 
 .topbar,
@@ -71,7 +71,8 @@ img {
   align-items: center;
   gap: 16px;
   min-height: 72px;
-  padding: 0 30px;
+  padding: 0;
+  border-top: 2px solid var(--line);
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -316,7 +317,8 @@ h3 {
 }
 
 .description {
-  min-height: 72px;
+  margin-bottom: 0;
+  min-height: 40px;
 }
 
 .tag-row span {
@@ -336,6 +338,13 @@ h3 {
   gap: 10px;
 }
 
+.donation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .ghost-button,
 .detail-link,
 .info-link {
@@ -346,6 +355,19 @@ h3 {
   border: 1px solid var(--line);
   color: var(--ink);
   background: white;
+}
+
+.donation-link {
+  padding: 3px 11px;
+  border-radius: 999px;
+  border-color: #cfc2ff;
+  color: #6f61a8;
+  background: #f3eeff;
+}
+
+.donation-link:hover {
+  border-color: #b8a5ff;
+  background: #ebe3ff;
 }
 
 .detail-shell {
@@ -393,7 +415,7 @@ h3 {
 
 .map-page-shell,
 .simple-page-shell {
-  padding: 32px 64px 0;
+  padding: 32px 96px 0;
 }
 
 .map-page-heading,
@@ -409,10 +431,6 @@ h3 {
   font-size: clamp(2.2rem, 4vw, 3.6rem);
 }
 
-.map-page-copy,
-.simple-page-copy {
-  max-width: 700px;
-}
 
 .map-chip-row {
   margin-bottom: 18px;
@@ -460,6 +478,7 @@ h3 {
 .naver-marker:hover {
   z-index: 30;
 }
+
 
 .naver-marker-pin {
   position: absolute;
@@ -677,6 +696,41 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.about-body {
+  display: grid;
+  gap: 20px;
+  max-width: 640px;
+}
+
+.about-hero {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.about-lead {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.about-col {
+  display: grid;
+  gap: 18px;
+}
+
+.about-section-title {
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  margin-bottom: 4px;
+}
+
 .form-card {
   align-self: start;
 }
@@ -708,6 +762,8 @@ h3 {
   border: 1px solid var(--line-soft);
   background: white;
   color: var(--ink);
+  resize: vertical;
+  max-width: 100%;
 }
 
 .form-field-wide {
@@ -799,6 +855,10 @@ dd {
     max-width: none;
   }
 
+  .catalog-header {
+    padding: 0 20px;
+  }
+
   .map-page-shell,
   .simple-page-shell {
     padding: 24px 20px 0;
@@ -834,10 +894,14 @@ dd {
     width: 100%;
   }
 
+  .catalog-header {
+    padding: 0 16px;
+  }
+
   .topbar {
     grid-template-columns: 48px 1fr;
     gap: 12px;
-    padding: 14px 10px;
+    padding: 14px 0;
     min-height: auto;
   }
 
@@ -978,6 +1042,10 @@ dd {
   .detail-link,
   .info-link {
     padding: 9px 11px;
+  }
+
+  .donation-link {
+    padding: 3px 9px;
   }
 
   .donation-block p,

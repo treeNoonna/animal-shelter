@@ -54,8 +54,11 @@ export function HomePage() {
           <section className="catalog-grid">
             {filteredShelters.length ? (
               filteredShelters.map((shelter, index) => {
-                const previewImage = `/cat${(index % 3) + 1}.png`;
-                const snsEntries = Object.entries(shelter.sns).slice(0, 2);
+                const previewImage = shelter.image ?? `/cat${(index % 3) + 1}.png`;
+                const snsEntries = Object.entries(shelter.sns ?? {}).slice(0, 2);
+                const shelterTags = (shelter.tags ?? []).slice(0, 3);
+                const donation = shelter.donation ?? {};
+                const donationItems = Array.isArray(donation.items) ? donation.items : [];
 
                 return (
                   <article key={shelter.id} className="catalog-card">
@@ -72,11 +75,13 @@ export function HomePage() {
 
                     <p className="description">{shelter.description}</p>
 
-                    <div className="tag-row">
-                      {shelter.tags.slice(0, 3).map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </div>
+                    {shelterTags.length ? (
+                      <div className="tag-row">
+                        {shelterTags.map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                    ) : null}
 
                     <div className="info-block">
                       <strong>SNS</strong>
@@ -90,9 +95,18 @@ export function HomePage() {
                     </div>
 
                     <div className="info-block donation-block">
-                      <strong>후원 정보</strong>
-                      <p>{shelter.donation.account}</p>
-                      <p>필요 물품: {shelter.donation.items.slice(0, 2).join(", ")}</p>
+                      <div className="donation-header">
+                        <strong>후원 정보</strong>
+                        {donation.link ? (
+                          <a className="info-link small-link donation-link" href={donation.link} target="_blank" rel="noreferrer">
+                            link
+                          </a>
+                        ) : null}
+                      </div>
+                      {donation.account ? <p>{donation.account}</p> : null}
+                      {donationItems.length > 0 && (
+                        <p>필요 물품: {donationItems.slice(0, 2).join(", ")}</p>
+                      )}
                     </div>
                   </article>
                 );

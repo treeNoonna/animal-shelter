@@ -3,23 +3,18 @@ import { useMemo, useState } from "react";
 import { NaverMap } from "@/components/naver-map";
 import { SiteHeader } from "@/components/site-header";
 import { getDistanceKm, type UserLocation } from "@/lib/geo";
-import { regions, shelters } from "@/lib/shelters";
+import { shelters } from "@/lib/shelters";
 
 function getPrimarySnsLink(sns: Record<string, string>) {
   return Object.values(sns)[0] ?? null;
 }
 
 export function MapPage() {
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [activeShelterId, setActiveShelterId] = useState<string | null>(null);
+  const [visibleShelterIds, setVisibleShelterIds] = useState<string[]>([]);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [locationMessage, setLocationMessage] = useState("");
-
-  const filteredShelters = useMemo(
-    () => shelters.filter((shelter) => !selectedRegion || shelter.region === selectedRegion),
-    [selectedRegion],
-  );
 
   const nearestShelters = useMemo(() => {
     if (!userLocation) {
@@ -34,6 +29,14 @@ export function MapPage() {
       .sort((left, right) => left.distanceKm - right.distanceKm)
       .slice(0, 3);
   }, [userLocation]);
+
+  const visibleShelters = useMemo(() => {
+    if (!visibleShelterIds.length) {
+      return [];
+    }
+    const visibleSet = new Set(visibleShelterIds);
+    return shelters.filter((shelter) => visibleSet.has(shelter.id));
+  }, [visibleShelterIds]);
 
   const handleFindNearest = () => {
     if (!navigator.geolocation) {
@@ -70,76 +73,70 @@ export function MapPage() {
             <h1 className="map-page-title">보호소 지도</h1>
           </div>
           <p className="section-copy map-page-copy">
-            아래 지역을 선택하면 해당 지역 쉼터 목록이 나타납니다.
+            정확한 주소가 제공되지 않은 보호소는 지도에 표시되지 않을 수 있으므로
+            sns로 개별 문의 부탁드립니다.
           </p>
         </section>
-
-        <div className="chip-row map-chip-row">
-          {regions.map((region) => (
-            <button
-              key={region}
-              type="button"
-              className={`region-chip ${(region === "전체" ? !selectedRegion : selectedRegion === region) ? "is-active" : ""}`}
-              onClick={() => {
-                setSelectedRegion(region === "전체" ? null : region);
-                setActiveShelterId(null);
-              }}
-            >
-              {region}
-            </button>
-          ))}
-        </div>
 
         <section className="map-page-grid">
           <div className="map-canvas-shell">
             <NaverMap
-              shelters={filteredShelters}
+              shelters={shelters}
               activeShelterId={activeShelterId}
               userLocation={userLocation}
+              onVisibleShelterIdsChange={setVisibleShelterIds}
               onMarkerClick={(shelter) => {
-                setSelectedRegion(shelter.region);
                 setActiveShelterId(shelter.id);
               }}
             />
           </div>
 
           <aside className="map-sidebar">
-            {selectedRegion ? (
-              <>
-                <div className="map-sidebar-heading">
-                  <strong>{selectedRegion}</strong>
-                  <span>{filteredShelters.length} shelters</span>
-                </div>
-                {filteredShelters.map((shelter) => {
-                  const primarySnsLink = getPrimarySnsLink(shelter.sns);
+            <div className="map-sidebar-heading">
+              <strong>현재 지도 내 보호소</strong>
+              <span>{visibleShelters.length} shelters</span>
+            </div>
+            {visibleShelters.length ? (
+              visibleShelters.map((shelter) => {
+                const primarySnsLink = getPrimarySnsLink(shelter.sns);
 
-                  return (
-                    <article
-                      key={shelter.id}
-                      className={`map-list-card ${activeShelterId === shelter.id ? "is-active" : ""}`}
-                    >
-                      <div
-                        className="map-list-button"
-                        onMouseEnter={() => setActiveShelterId(shelter.id)}
-                        onFocus={() => setActiveShelterId(shelter.id)}
-                      >
-                        {primarySnsLink ? (
-                          <a className="map-list-link" href={primarySnsLink} target="_blank" rel="noreferrer">
-                            {shelter.name}
-                          </a>
-                        ) : (
-                          <strong>{shelter.name}</strong>
-                        )}
-                        <span>{shelter.city}</span>
-                      </div>
-                    </article>
-                  );
-                })}
-              </>
+                return (
+                  <article
+                    key={shelter.id}
+                    className={`map-list-card ${activeShelterId === shelter.id ? "is-active" : ""}`}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setActiveShelterId(shelter.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setActiveShelterId(shelter.id);
+                      }
+                    }}
+                  >
+                    <div className="map-list-button">
+                      {primarySnsLink ? (
+                        <a
+                          className="map-list-link"
+                          href={primarySnsLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(event) => event.stopPropagation()}
+                        >
+                          {shelter.name}
+                        </a>
+                      ) : (
+                        <strong>{shelter.name}</strong>
+                      )}
+                      <span>{shelter.city}</span>
+                    </div>
+                  </article>
+                );
+              })
             ) : (
               <article className="map-sidebar-empty">
-                <strong>지역을 선택해 주세요</strong>
-                <p>지도에서 보호소 지역을 선택하면 해당 지역 쉼터 목록이 나타납니다.</p>
+                <strong>현재 지도 영역에 표시된 보호소가 없습니다</strong>
+                <p>지도를 이동하거나 줌아웃하면 더 많은 보호소를 볼 수 있습니다.</p>
               </article>
             )}
           </aside>
@@ -174,7 +171,6 @@ export function MapPage() {
                         type="button"
                         className="mini-action"
                         onClick={() => {
-                          setSelectedRegion(shelter.region);
                           setActiveShelterId(shelter.id);
                         }}
                       >

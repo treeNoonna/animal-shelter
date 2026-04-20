@@ -17,6 +17,8 @@ type NaverMapProps = {
   activeShelterId?: string | null;
   userLocation?: { lat: number; lng: number } | null;
   onMarkerClick?: (shelter: Shelter) => void;
+  onZoomChange?: (zoom: number) => void;
+  onVisibleShelterIdsChange?: (shelterIds: string[]) => void;
 };
 
 const DEFAULT_CENTER = { lat: 36.35, lng: 127.78 };
@@ -24,12 +26,22 @@ const DEFAULT_ZOOM = 7;
 const MARKER_WIDTH = 22;
 const MARKER_HEIGHT = 30;
 
-export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClick }: NaverMapProps) {
+export function NaverMap({
+  shelters,
+  activeShelterId,
+  userLocation,
+  onMarkerClick,
+  onZoomChange,
+  onVisibleShelterIdsChange,
+}: NaverMapProps) {
   const mapRootRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
+  const circlesRef = useRef<any[]>([]);
   const userMarkerRef = useRef<any>(null);
   const markerClickRef = useRef(onMarkerClick);
+  const onZoomChangeRef = useRef(onZoomChange);
+  const onVisibleShelterIdsChangeRef = useRef(onVisibleShelterIdsChange);
   const [isReady, setIsReady] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
 
@@ -44,6 +56,14 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
   useEffect(() => {
     markerClickRef.current = onMarkerClick;
   }, [onMarkerClick]);
+
+  useEffect(() => {
+    onZoomChangeRef.current = onZoomChange;
+  }, [onZoomChange]);
+
+  useEffect(() => {
+    onVisibleShelterIdsChangeRef.current = onVisibleShelterIdsChange;
+  }, [onVisibleShelterIdsChange]);
 
   useEffect(() => {
     if (window.naver?.maps) {
@@ -71,17 +91,39 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
         mapDataControl: false,
         scaleControl: false,
       });
+
+      naverMaps.Event.addListener(mapRef.current, "zoom_changed", () => {
+        onZoomChangeRef.current?.(mapRef.current.getZoom());
+      });
     }
 
     markersRef.current.forEach((marker) => marker.setMap(null));
+    circlesRef.current.forEach((circle) => circle.setMap(null));
+
+    circlesRef.current = encodedShelters
+      .filter((shelter) => shelter.map.approximate)
+      .map((shelter) =>
+        new naverMaps.Circle({
+          map: mapRef.current,
+          center: new naverMaps.LatLng(shelter.map.lat, shelter.map.lng),
+          radius: 3000,
+          fillColor: shelter.map.color,
+          fillOpacity: 0.12,
+          strokeColor: shelter.map.color,
+          strokeOpacity: 0.4,
+          strokeWeight: 1.5,
+        })
+      );
+
     markersRef.current = encodedShelters.map((shelter) => {
+      const isApproximate = shelter.map.approximate;
       const marker = new naverMaps.Marker({
         position: new naverMaps.LatLng(shelter.map.lat, shelter.map.lng),
         map: mapRef.current,
         title: shelter.name,
         icon: {
           content: `
-            <div class="naver-marker" title="${shelter.title}">
+            <div class="naver-marker${isApproximate ? " approximate" : ""}" title="${shelter.title}">
               <span class="naver-marker-pin" style="background:${shelter.map.color}"></span>
               <strong class="naver-marker-tooltip">${shelter.title}</strong>
             </div>
@@ -92,6 +134,12 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
       });
 
       naverMaps.Event.addListener(marker, "click", () => {
+        const target = new naverMaps.LatLng(shelter.map.lat, shelter.map.lng);
+        const currentZoom = mapRef.current.getZoom();
+        if (currentZoom < 11) {
+          mapRef.current.setZoom(11, true);
+        }
+        mapRef.current.setCenter(target);
         markerClickRef.current?.(shelter);
       });
 
@@ -111,7 +159,32 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
       mapRef.current.setCenter(new naverMaps.LatLng(DEFAULT_CENTER.lat, DEFAULT_CENTER.lng));
       mapRef.current.setZoom(DEFAULT_ZOOM);
     }
-  }, [encodedShelters, isReady]);
+
+    const currentBounds = mapRef.current.getBounds?.();
+    if (currentBounds && onVisibleShelterIdsChangeRef.current) {
+      const visibleShelterIds = shelters
+        .filter((shelter) =>
+          currentBounds.hasLatLng(new naverMaps.LatLng(shelter.map.lat, shelter.map.lng)),
+        )
+        .map((shelter) => shelter.id);
+      onVisibleShelterIdsChangeRef.current(visibleShelterIds);
+    }
+
+    const idleListener = naverMaps.Event.addListener(mapRef.current, "idle", () => {
+      const bounds = mapRef.current.getBounds?.();
+      if (!bounds || !onVisibleShelterIdsChangeRef.current) {
+        return;
+      }
+      const visibleShelterIds = shelters
+        .filter((shelter) => bounds.hasLatLng(new naverMaps.LatLng(shelter.map.lat, shelter.map.lng)))
+        .map((shelter) => shelter.id);
+      onVisibleShelterIdsChangeRef.current(visibleShelterIds);
+    });
+
+    return () => {
+      naverMaps.Event.removeListener(idleListener);
+    };
+  }, [encodedShelters, isReady, shelters]);
 
   useEffect(() => {
     const naverMaps = window.naver?.maps;
@@ -146,10 +219,29 @@ export function NaverMap({ shelters, activeShelterId, userLocation, onMarkerClic
     }
 
     if (!activeShelterId) {
-      mapRef.current.panTo(position);
+      mapRef.current.setCenter(position);
       mapRef.current.setZoom(10, true);
     }
   }, [activeShelterId, userLocation]);
+
+  useEffect(() => {
+    const naverMaps = window.naver?.maps;
+    if (!naverMaps || !mapRef.current || !activeShelterId) {
+      return;
+    }
+
+    const selectedShelter = shelters.find((shelter) => shelter.id === activeShelterId);
+    if (!selectedShelter) {
+      return;
+    }
+
+    const target = new naverMaps.LatLng(selectedShelter.map.lat, selectedShelter.map.lng);
+    const currentZoom = mapRef.current.getZoom();
+    if (currentZoom < 11) {
+      mapRef.current.setZoom(11, true);
+    }
+    mapRef.current.setCenter(target);
+  }, [activeShelterId, shelters]);
 
   if (!clientId) {
     return (

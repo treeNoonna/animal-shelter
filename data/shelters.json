@@ -1,201 +1,167 @@
 [
   {
-    "id": "happy-tail-seoul",
-    "name": "해피테일 서울쉼터",
-    "region": "서울",
-    "city": "서울 마포구",
-    "type": "강아지·고양이 구조",
-    "description": "도심 구조 동물을 임시보호하며 입양 상담과 행동 교정을 함께 진행하는 민간 보호소입니다.",
-    "tags": ["입양상담", "행동교정", "봉사모집"],
+    "id": "cats-patch",
+    "name": "캐츠패치",
+    "region": "충남",
+    "city": "천안",
+    "type": "고양이 구조",
+    "description": "캐츠패치 묘정쉼터는 일반 직장인이 운영하고 있는 유기묘 및 아픈 길고양이들을 위한 안식처로 충남 천안에 위치하고 있으며 구조한 유기묘 및 아픈 길고양이들이 치료받고 머물 곳이 없어 마련한 개인 쉼터입니다.",
+    "tags": ["입양상담", "임시보호", "봉사모집"],
     "sns": {
-      "instagram": "https://instagram.com/happytail.seoul",
-      "youtube": "https://youtube.com/@happytailseoul"
+      "instagram": "https://www.instagram.com/citrus_sister",
+      "youtube": "https://www.youtube.com/channel/UCWiVOmszwaP5DPUHQjq5qAA"
     },
     "donation": {
-      "account": "하나은행 123-456789-000",
-      "link": "https://example.com/donate/happytail-seoul",
+      "account": "농협 301-0326-0776-71",
       "items": ["사료", "패드", "고양이 모래"]
     },
-    "animals": ["푸들 믹스 하루", "치즈냥 구름", "시바 믹스 모찌"],
-    "address": "서울특별시 마포구 성산로 00",
-    "hours": "화-일 11:00 - 18:00",
-    "map": { "lat": 37.5636, "lng": 126.9085, "color": "#ff8cb7" }
+    "address": "자세한 위치는 SNS를 통해 문의해주세요.",
+    "image": "/catpatch.png",
+    "map": { "lat": 36.8151, "lng": 127.1139, "color": "#ff8cb7", "approximate": true }
   },
   {
-    "id": "rainbow-paws-gyeonggi",
-    "name": "레인보우포우 경기센터",
-    "region": "경기",
-    "city": "경기 성남시",
-    "type": "대형견 구조",
-    "description": "대형견과 노령견의 재활과 사회화에 집중하는 민간 보호소입니다.",
-    "tags": ["대형견", "노령견", "산책봉사"],
+    "id": "ppu-ppu",
+    "name": "뿌뿌네",
+    "region": "서울시",
+    "city": "구로구",
+    "description": "집냥이를 꿈꾸는 고양이들이 지내는 임보하숙집🏡(서울구로)",
+    "tags": [ "입양상담" , "봉사모집"],
     "sns": {
-      "instagram": "https://instagram.com/rainbowpaws.gg",
-      "blog": "https://blog.naver.com/rainbowpaws"
+      "instagram": "https://instagram.com/ppuppu_ne"
+    },
+    "donation": {   
+      "link": "https://smartstore.naver.com/ppuppu_ne"
+    },
+    "address": "자세한 위치는 SNS를 통해 문의해주세요.",
+    "image": "/ppuppu.png",
+    "map": { "lat": 37.4954, "lng": 126.8874, "color": "#ffb84d", "approximate": true }
+  },
+  {
+    "id": "morac-morac",
+    "name": "모락모락",
+    "region": "서울",
+    "city": "서울시 동작구 흑석동",
+    "type": "흑성동 철거 예정지 유기동물 구조",
+    "description": "🏡60여 고양이 그리고 진돗개 루키 보호자. 🌳#모락모락 #흑석동쉼터 #흑석동 철거 예정지 길고양이 돌봐요.",
+    "tags": ["고양이구조", "흑석동철거", "임시보호", "  봉사모집"],
+    "sns": {
+      "instagram": "https://instagram.com/moracmorac33"
     },
     "donation": {
-      "account": "국민은행 456-987654-321",
-      "link": "https://example.com/donate/rainbowpaws",
-      "items": ["영양제", "간식", "목줄"]
+      "account": "하나은행 217-910023-43104 "
     },
-    "animals": ["리트리버 봄", "진도 믹스 토리", "허스키 누리"],
-    "address": "경기도 성남시 수정구 복정로 00",
-    "hours": "매일 10:00 - 17:00",
-    "map": { "lat": 37.4441, "lng": 127.1258, "color": "#ffb84d" }
+    "animals": ["진돗개 루키"],
+    "image": "/moracmorac.png",
+    "map": { "lat": 37.5057, "lng": 126.9631, "color": "#77d6ff", "approximate": true }
   },
   {
-    "id": "sea-breeze-busan",
-    "name": "씨브리즈 부산보호소",
-    "region": "부산",
-    "city": "부산 기장군",
-    "type": "해안가 유기동물 구조",
-    "description": "해안과 도심에서 구조한 유기동물을 치료하고 입양 연계를 지원합니다.",
-    "tags": ["의료지원", "해안구조", "임보연계"],
-    "sns": {
-      "instagram": "https://instagram.com/seabreeze.busan",
-      "facebook": "https://facebook.com/seabreezebusan"
-    },
-    "donation": {
-      "account": "신한은행 101-234-567890",
-      "link": "https://example.com/donate/seabreeze",
-      "items": ["수건", "소독용품", "캔사료"]
-    },
-    "animals": ["코숏 바다", "믹스견 초코", "삼색냥 별이"],
-    "address": "부산광역시 기장군 해안로 00",
-    "hours": "수-월 10:30 - 18:30",
-    "map": { "lat": 35.2442, "lng": 129.2227, "color": "#77d6ff" }
-  },
-  {
-    "id": "green-whiskers-gangwon",
-    "name": "그린위스커스 강원쉼터",
-    "region": "강원",
-    "city": "강원 춘천시",
+    "id": "save-cat-seongnam",
+    "name": "세이브캣 성남",
+    "region": "성남시",
+    "city": "경기도 성남시",
     "type": "고양이 집중 보호",
-    "description": "길고양이 구조와 치료 후 입양까지 연결하는 고양이 특화 민간 보호소입니다.",
+    "description": "🔹️세이브캣은 위탁보호소 안락사 대상고양이를 전원 구조했습니다. 현재는 구조중단 중입니다.",
     "tags": ["고양이", "치료지원", "TNR연계"],
     "sns": {
-      "instagram": "https://instagram.com/greenwhiskers",
-      "youtube": "https://youtube.com/@greenwhiskers"
+      "instagram": "https://instagram.com/ssavecat"
     },
     "donation": {
-      "account": "우리은행 555-333333-111",
-      "link": "https://example.com/donate/greenwhiskers",
-      "items": ["모래", "캣타워", "습식캔"]
+      "account": "하나은행 336-910009-49404 세이브캣"
     },
-    "animals": ["턱시도냥 달이", "치즈냥 코코", "검은냥 라떼"],
-    "address": "강원특별자치도 춘천시 후석로 00",
-    "hours": "화-토 12:00 - 19:00",
-    "map": { "lat": 37.8813, "lng": 127.7298, "color": "#86e49d" }
+    "image": "/savecat.png",
+    "map": { "lat": 37.4200, "lng": 127.1265, "color": "#86e49d", "approximate": true }
   },
   {
-    "id": "warm-heart-chungnam",
-    "name": "웜하트 충남하우스",
-    "region": "충청",
-    "city": "충남 천안시",
-    "type": "가정형 임시보호 네트워크",
-    "description": "충청권 임시보호 가정을 연결하고 입양 전 교육을 운영하는 네트워크형 보호소입니다.",
-    "tags": ["임시보호", "입양교육", "가정형"],
+    "id": "guri-stray-cat-happiness",
+    "name": "구리 길냥이 행복찾기",
+    "region": "경기",
+    "city": "경기도 구리시",
+    "description": "위기의 아가들을구조,케어 가족을 찾아주고픈바램으로..",
+    "tags": ["임시보호", "입양상담", "봉사모집"],
     "sns": {
-      "instagram": "https://instagram.com/warmheart.cn",
-      "blog": "https://blog.naver.com/warmheartcn"
+      "instagram": "https://instagram.com/guri.cats"
     },
     "donation": {
-      "account": "농협 301-8888-2222-11",
-      "link": "https://example.com/donate/warmheart",
-      "items": ["분유", "배변패드", "이동장"]
+      "account": "sc제일 61720127484 쉼터운영, 농협 3550083036163 행복찾기",
+      "items": ["사료", "캔", "트릿", "간식", "모래", "스크래처"]
     },
-    "animals": ["새끼강아지 두부", "치즈냥 밀크", "믹스견 밤이"],
-    "address": "충청남도 천안시 서북구 불당로 00",
-    "hours": "월-토 10:00 - 18:00",
-    "map": { "lat": 36.8151, "lng": 127.1139, "color": "#ffd966" }
+    "image": "/guri.png",
+    "map": { "lat": 37.5943, "lng": 127.1296, "color": "#ffd966", "approximate": true }
   },
   {
-    "id": "berry-friends-jeonbuk",
-    "name": "베리프렌즈 전북쉼터",
-    "region": "전라도",
-    "city": "전북 전주시",
-    "type": "중소형견 보호",
-    "description": "입양 행사와 지역 커뮤니티 교육을 함께 운영하는 밝은 분위기의 보호소입니다.",
-    "tags": ["중소형견", "입양행사", "교육프로그램"],
+    "id": "brave-gangneoung",
+    "name": "용감이네",
+    "region": "강원",
+    "city": "강원도 강릉시",
+    "description": "용감이네는, 보호나 치료가 필요해 구조된 길냥이들의 안식처입니다. 사랑스런 100천사냥들과 엄마 집사의 묘연 ♡ 행복만들기 !",
+    "tags": ["임시보호", "카페"],
     "sns": {
       "instagram": "https://instagram.com/berryfriends.jb",
-      "youtube": "https://youtube.com/@berryfriendsjb"
+      "youtube": "https://www.youtube.com/channel/UCnNmbLDayyeN4ebJv4yMgfQ"
     },
     "donation": {
-      "account": "카카오뱅크 3333-05-8888888",
-      "link": "https://example.com/donate/berryfriends",
-      "items": ["하네스", "장난감", "청소용품"]
+      "account": "카페로 운영되고 있었으나 민원으로 인해 잠정 중단된 상태입니다. 후원 문의는 SNS로 부탁드립니다."
     },
-    "animals": ["말티 믹스 솜이", "푸들 보리", "스피츠 앵두"],
-    "address": "전북특별자치도 전주시 완산구 효자로 00",
-    "hours": "화-일 11:00 - 18:00",
-    "map": { "lat": 35.8242, "lng": 127.148, "color": "#c79bff" }
+    "image": "/brave.png",
+    "map": { "lat": 37.7519, "lng": 128.8761, "color": "#c79bff", "approximate": true }
   },
   {
     "id": "sunny-tail-gwangju",
-    "name": "써니테일 광주센터",
-    "region": "광주",
-    "city": "광주 북구",
+    "name": "우다다냥냥냥(장소 미정)",
+    "region": "미정",
+    "city": "자세한 위치는 SNS를 통해 문의해주세요.",
     "type": "치료 후 입양 연계",
-    "description": "의료비 후원 캠페인이 활발한 민간 보호소로 구조 직후 치료 지원이 강점입니다.",
-    "tags": ["의료후원", "입양상담", "캠페인"],
+    "description": "5년 전, 우연히 만나게 된 길고양이 가족을 시작으로 월세방을 얻어 도움이 필요한 길고양이 유기묘 들을 구조 하고 치료 하며 임보와 입양홍보를 통해 평생 가족을 찾아주고 있습니다. 또한 시보호소 그리고 개인구조자 분들이 구조한 강아지들 유기견 들의 입양홍보도 진행하고 있습니다",
+    "tags": ["의료후원", "입양상담"],
     "sns": {
-      "instagram": "https://instagram.com/sunnytail.gj",
-      "facebook": "https://facebook.com/sunnytailgj"
+      "instagram": "instagram.com/ooh_dada_nyang_nyang_nyang",
+      "youtube": "https://www.youtube.com/@ooh_dada_nyang_nyang_nyang"
     },
     "donation": {
-      "account": "광주은행 777-123-456789",
+      "account": "카카오뱅크 3333221792128 황x은",
       "link": "https://example.com/donate/sunnytail",
-      "items": ["치료비", "영양식", "방수패드"]
+      "items": ["치료비", "물품 후원", "나눔 협찬 환영"]
     },
-    "animals": ["코기 믹스 해님", "코숏 밀감", "믹스견 나래"],
-    "address": "광주광역시 북구 하서로 00",
-    "hours": "매일 09:30 - 17:30",
-    "map": { "lat": 35.1768, "lng": 126.9118, "color": "#ff9ec7" }
+    "image": "/udada.png",
+    "map": { "lat": 35.1768, "lng": 126.9118, "color": "#ff9ec7", "approximate": true }
   },
   {
-    "id": "forest-hug-jeju",
-    "name": "포레스트허그 제주쉼터",
+    "id": "jeju-now",
+    "name": "제주 나우",
     "region": "제주",
     "city": "제주 제주시",
-    "type": "관광지 유기동물 구조",
-    "description": "관광지 주변에서 구조된 동물을 보호하고 여행자 후원 프로그램을 운영합니다.",
-    "tags": ["제주", "관광지구조", "여행자후원"],
+    "description": "사단법인 제주동물권행동 나우입니다. 🍀구조견 구조묘 마라도 고양이 보금자리 후원진행중 입니다.",
+    "tags": ["사단법인", "강아지보호", "고양이보호"],
     "sns": {
-      "instagram": "https://instagram.com/foresthug.jeju",
-      "blog": "https://blog.naver.com/foresthugjeju"
+      "instagram": "https://www.instagram.com/jeju.now/", 
+      "homepage": "http://www.jejuanimalnow.org/"
     },
     "donation": {
-      "account": "제주은행 123-11-123456",
-      "link": "https://example.com/donate/foresthug",
-      "items": ["이동가방", "수건", "의약품"]
+      "account": "농협 351-1203-3779-13", 
+      "link": "https://www.ihappynanum.com/Nanum/B/NM19FHIFEC"
     },
-    "animals": ["믹스견 감귤", "턱시도냥 돌담", "포메 믹스 바람"],
-    "address": "제주특별자치도 제주시 애월읍 00",
-    "hours": "수-일 10:00 - 17:00",
-    "map": { "lat": 33.4602, "lng": 126.3347, "color": "#7ae0d6" }
+    "image": "/jeju_now.png",
+    "map": { "lat": 33.4602, "lng": 126.3347, "color": "#7ae0d6", "approximate": true }
   },
   {
-    "id": "cloud-nine-daegu",
-    "name": "클라우드나인 대구홈",
+    "id": "cherry-dogcat",
+    "name": "앵두네쉼터",
     "region": "경상",
     "city": "대구 달성군",
-    "type": "구조견 회복 프로그램",
-    "description": "구조 후 회복과 사회성 훈련을 중심으로 운영되는 민간 보호소입니다.",
-    "tags": ["재활", "사회화", "훈련프로그램"],
+    "description": "🍒 대구에 위치한 유기동물쉼터 입니다.🐾 가슴아픈사연의 댕이 40여마리, 냥이 50여마리 들이 모여 있어요",
+    "tags": ["고양이보호", "강아지보호", "입양상담", "임시보호"],
     "sns": {
-      "instagram": "https://instagram.com/cloudnine.dg",
+      "instagram": "https://instagram.com/cherry_dogcat1004",
       "youtube": "https://youtube.com/@cloudninedg"
     },
     "donation": {
-      "account": "대구은행 505-223344-55",
-      "link": "https://example.com/donate/cloudnine",
-      "items": ["간식", "훈련용품", "의료비"]
+      "account": "국민 615801-04-3487629",
+      "link": "https://www.ihappynanum.com/Nanum/B/R316UIJPG9?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn0GXhxVBCbY8i7FE0DxYmLPAaIOa8f1iBi5fxnmErXSvyph4mR3XhOTKKbK4_aem_WccZoqrO6H4vn2Y3F6aPwg",
+      "items": ["냥이모래", "패드", "사료"]
     },
-    "animals": ["믹스견 소다", "치와와 콩이", "코숏 몽실"],
-    "address": "대구광역시 달성군 다사읍 00",
-    "hours": "월-토 10:00 - 18:30",
-    "map": { "lat": 35.8714, "lng": 128.6014, "color": "#96b7ff" }
+
+    "image": "/cherry.png",
+    "map": { "lat": 35.8714, "lng": 128.6014, "color": "#96b7ff", "approximate": true }
   },
   {
     "id": "swieogagaenyang-yongsan",
@@ -203,7 +169,7 @@
     "region": "서울",
     "city": "서울 용산구",
     "type": "고양이·강아지 보호",
-    "description": "용산구를 기반으로 구조 동물을 돌보며 차분한 보호와 회복 중심의 케어를 운영하는 민간 보호소입니다.",
+    "description": "숙대입구 근처 작은주택에 마련된 길냥이 쉼터입니다.",
     "tags": ["서울", "용산", "회복케어"],
     "sns": {
       "instagram": "https://instagram.com/cat.and.relax"
@@ -213,10 +179,9 @@
       "link": "https://instagram.com/cat.and.relax",
       "items": ["사료", "캣타워", "패드"]
     },
-    "animals": ["코숏 몽이", "믹스견 휴이", "치즈냥 단잠"],
-    "address": "서울특별시 용산구 00",
-    "hours": "화-일 11:00 - 18:00",
-    "map": { "lat": 37.5326, "lng": 126.9906, "color": "#ffb3c7" }
+    "address": "서울특별시 용산구",
+    "image": "/restcat.png",
+    "map": { "lat": 37.5326, "lng": 126.9906, "color": "#ffb3c7", "approximate": true }
   },
   {
     "id": "nyangi-saenggak-goyang",
@@ -234,19 +199,17 @@
       "link": "https://instagram.com/todandbyeoli",
       "items": ["모래", "습식캔", "이동장"]
     },
-    "animals": ["턱시도냥 토드", "삼색냥 별이", "코숏 두부"],
-    "address": "경기도 고양시 00",
-    "hours": "월-토 10:00 - 18:00",
-    "map": { "lat": 37.6584, "lng": 126.8320, "color": "#b7c4ff" }
+    "address": "경기도 고양시",
+    "image": "/nangyi.png",
+    "map": { "lat": 37.6584, "lng": 126.8320, "color": "#b7c4ff", "approximate": true }
   },
   {
     "id": "gwangju-cat-gwangju",
     "name": "광주캣",
     "region": "광주",
     "city": "광주광역시",
-    "type": "고양이 구조",
     "description": "광주권 고양이 구조와 돌봄, 치료 후 입양 연계를 진행하는 민간 보호소입니다.",
-    "tags": ["광주", "고양이구조", "치료연계"],
+    "tags": ["광주", "고양이구조", "TNR연계"],
     "sns": {
       "instagram": "https://instagram.com/gwangjucats"
     },
@@ -255,30 +218,27 @@
       "link": "https://instagram.com/gwangjucats",
       "items": ["의료비", "영양식", "모래"]
     },
-    "animals": ["코숏 여름", "치즈냥 밤톨", "검은냥 무무"],
-    "address": "광주광역시 00",
-    "hours": "화-일 11:00 - 18:00",
-    "map": { "lat": 35.1595, "lng": 126.8526, "color": "#ffb88a" }
+    "image": "/gwangju.png",
+    "map": { "lat": 35.1595, "lng": 126.8526, "color": "#ffb88a", "approximate": true }
   },
   {
     "id": "mokpo-cat-sarangbang",
-    "name": "목포고양이사랑방",
+    "name": "목포고양이사랑방 다묘네",
     "region": "전라도",
     "city": "전남 목포시",
     "type": "고양이 보호",
     "description": "목포 지역에서 구조된 고양이들을 보호하고 후원과 돌봄 네트워크를 연결하는 민간 보호소입니다.",
-    "tags": ["전남", "목포", "고양이"],
+    "tags": ["입양문의", "봉사자모집"],
     "sns": {
       "instagram": "https://instagram.com/jnbrg5302"
     },
     "donation": {
       "account": "광주 1107-02-549404",
       "link": "https://instagram.com/jnbrg5302",
-      "items": ["사료", "수건", "모래"]
+      "items": ["사료", "캔", "모래"]
     },
-    "animals": ["코숏 사랑", "턱시도냥 바다", "치즈냥 영산"],
     "address": "전라남도 목포시 영산로 258번길 24",
-    "hours": "월-토 10:30 - 17:30",
+    "image": "/mokpo.png",
     "map": { "lat": 34.7936, "lng": 126.3922, "color": "#ffd48d" }
   },
   {
@@ -297,9 +257,8 @@
       "link": "https://instagram.com/nest_animal_2011",
       "items": ["의료비", "사료", "배변패드"]
     },
-    "animals": ["믹스견 네모", "코숏 하루", "포메 믹스 리오"],
     "address": "서울특별시 녹사평대로 40가길 7-3",
-    "hours": "화-토 10:00 - 18:00",
+    "image": "/nest.png",
     "map": { "lat": 37.5349, "lng": 126.9863, "color": "#c9b4ff" }
   }
 ]
