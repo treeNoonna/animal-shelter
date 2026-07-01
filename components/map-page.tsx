@@ -63,8 +63,9 @@ export function MapPage() {
   };
 
   return (
-    <div className="page-shell">
+    <>
       <SiteHeader active="map" />
+      <div className="page-shell">
 
       <main className="map-page-shell">
         <section className="map-page-heading">
@@ -185,5 +186,6 @@ export function MapPage() {
         </section>
       </main>
     </div>
+    </>
   );
 }

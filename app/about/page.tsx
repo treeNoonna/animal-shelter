@@ -2,10 +2,11 @@ import { SiteHeader } from "@/components/site-header";
 
 export default function AboutPage() {
   return (
-    <div className="page-shell">
+    <>
       <SiteHeader active="about" />
+      <div className="page-shell">
       <main className="simple-page-shell">
-        <section className="about-hero" style={{ display: "flex", alignItems: "flex-end", gap: "32px" }}>
+        <section className="about-hero">
           <div style={{ display: "grid", gap: "16px" }}>
             <p className="eyebrow">About</p>
             <h1 className="simple-page-title">민간 보호소를 도와주세요</h1>
@@ -73,5 +74,6 @@ export default function AboutPage() {
         </section>
       </main>
     </div>
+    </>
   );
 }

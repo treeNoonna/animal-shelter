@@ -3,9 +3,10 @@ import { SiteHeader } from "@/components/site-header";
 
 export default function RegisterPage() {
   return (
-    <div className="page-shell">
+    <>
       <SiteHeader active="register" />
-      <main className="simple-page-shell">
+      <div className="page-shell">
+        <main className="simple-page-shell">
         <section className="simple-page-hero">
           <p className="eyebrow">Register Shelter</p>
           <h1 className="simple-page-title">보호소 등록 안내</h1>
@@ -37,7 +38,8 @@ export default function RegisterPage() {
             </div>
           </article>
         </section>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }

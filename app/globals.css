@@ -50,7 +50,7 @@ img {
 }
 
 .catalog-header {
-  padding: 0 64px;
+  padding: 0 48px;
 }
 
 .topbar,
@@ -703,8 +703,9 @@ h3 {
 }
 
 .about-hero {
-  display: grid;
-  gap: 16px;
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
   margin-bottom: 48px;
 }
 
@@ -853,10 +854,6 @@ dd {
 
   h1 {
     max-width: none;
-  }
-
-  .catalog-header {
-    padding: 0 20px;
   }
 
   .map-page-shell,
@@ -1021,6 +1018,10 @@ dd {
     font-size: 0.74rem;
   }
 
+  .info-block strong {
+    font-size: 0.82rem;
+  }
+
   .description {
     min-height: 0;
     line-height: 1.35;
@@ -1067,6 +1068,21 @@ dd {
   .map-page-title,
   .simple-page-title {
     font-size: 2rem;
+  }
+
+  .about-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .about-hero img {
+    width: 120px !important;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
   .map-chip-row {

@@ -13,8 +13,9 @@ export function HomePage() {
   });
 
   return (
-    <div className="page-shell">
+    <>
       <SiteHeader active="shelters" />
+      <div className="page-shell">
 
       <main>
         <section className="catalog-layout" id="directory">
@@ -121,5 +122,6 @@ export function HomePage() {
         </section>
       </main>
     </div>
+    </>
   );
 }
