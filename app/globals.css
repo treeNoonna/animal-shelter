@@ -50,7 +50,7 @@ img {
 }
 
 .catalog-header {
-  padding: 0 48px;
+  padding: 0;
 }
 
 .topbar,
@@ -889,10 +889,6 @@ dd {
 
   .page-shell {
     width: 100%;
-  }
-
-  .catalog-header {
-    padding: 0 16px;
   }
 
   .topbar {
